@@ -213,6 +213,7 @@ public class JIoEndpoint extends AbstractEndpoint {
                     try {
                         // Accept the next incoming connection from the server
                         // socket
+                        // 等待下一个请求
                         socket = serverSocketFactory.acceptSocket(serverSocket);
                     } catch (IOException ioe) {
                         countDownConnection();
@@ -514,7 +515,9 @@ public class JIoEndpoint extends AbstractEndpoint {
      *                  immediately.
      */
     protected boolean processSocket(Socket socket) {
+        // 真正处理请求的地方
         // Process the request from this socket
+
         try {
             SocketWrapper<Socket> wrapper = new SocketWrapper<Socket>(socket);
             wrapper.setKeepAliveLeft(getMaxKeepAliveRequests());
